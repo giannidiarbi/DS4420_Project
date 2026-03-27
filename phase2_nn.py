@@ -43,7 +43,7 @@ class SimpleMLP:
         self.W1 -= self.lr * dW1
         self.b1 -= self.lr * db1
         self.W2 -= self.lr * dW2
-        self.b2 -= self.lr * db1
+        self.b2 -= self.lr * db2
 
     def train(self, X, y, epochs=500):
         for i in range(epochs):
