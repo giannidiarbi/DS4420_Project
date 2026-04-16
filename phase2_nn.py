@@ -60,6 +60,9 @@ class SimpleMLP:
         return history
 
 def main():
+    # Random seed for reproducability
+    np.random.seed(42)
+    
     out_dir = Path(__file__).resolve().parent / "figures"
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -68,6 +71,7 @@ def main():
         X, y, test_size=0.2, random_state=42
     )
 
+    # z-score normalize using training set statistics only
     mu = X_train.mean(axis=0)
     sigma = X_train.std(axis=0) + 1e-8
     X_train = (X_train - mu) / sigma
@@ -77,6 +81,8 @@ def main():
     history = mlp.train(X_train, y_train, epochs=500)
 
     y_pred = mlp.forward(X_test).flatten()
+
+    # evaluate on test set
     rmse = float(np.sqrt(np.mean((y_test - y_pred) ** 2)))
     print(f"MLP Test RMSE: {rmse:.3f}")
 
@@ -108,8 +114,6 @@ def main():
     fig2.tight_layout()
     fig2.savefig(out_dir / "mlp_pred_vs_actual.png", dpi=300)
     plt.close(fig2)
-
-    print(f"Saved figures to {out_dir}")
 
 
 if __name__ == "__main__":
