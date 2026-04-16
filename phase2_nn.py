@@ -80,6 +80,9 @@ def main():
     rmse = float(np.sqrt(np.mean((y_test - y_pred) ** 2)))
     print(f"MLP Test RMSE: {rmse:.3f}")
 
+    mae = float(np.mean(np.abs(y_test - y_pred)))
+    print(f"MLP Test MAE: {mae:.3f}")
+
     # Training loss
     fig1, ax1 = plt.subplots(figsize=(6, 4))
     ax1.plot(range(1, len(history) + 1), history, color="steelblue", linewidth=1.2)
